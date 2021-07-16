@@ -6,34 +6,30 @@ import (
 	"testing"
 )
 
-func Test_输入数字小于0_抛出异常(t *testing.T) {
-	_, err := Of(-1)
-	assert.EqualErrorf(
-		t,
-		err,
-		"输入数字不能小于0",
-		err.Error(),
-	)
-}
-
 func Test_FizzBuzz(t *testing.T) {
 	cases := []struct {
 		number   int
-		Expected string
+		expected string
 	}{
 		{1, "1"},
 		{3, "Fizz"},
 		{5, "Buzz"},
 		{15, "FizzBuzz"},
 	}
-	for _, tc := range cases {
-		t.Run(fmt.Sprintf(fmt.Sprintf("input: %d,expected:%s", tc.number, tc.Expected)), func(t *testing.T) {
-			assertResult(t, tc.number, tc.Expected)
+	for _, test := range cases {
+		t.Run(fmt.Sprintf("input:%d,expected:%s", test.number, test.expected), func(t *testing.T) {
+			assertResult(t, test.expected, test.number)
 		})
 	}
 }
 
-func assertResult(t *testing.T, number int, expected string) {
-	result, _ := Of(number)
+func Test_输入数字不能小于0(t *testing.T) {
+	_, err := Of(-1)
+	assert.Error(t, err, "输入数字不能小于0")
+}
+
+func assertResult(t *testing.T, expected string, number int) {
+	result, err := Of(number)
 	assert.Equal(t, expected, result)
+	assert.Equal(t, nil, err)
 }
