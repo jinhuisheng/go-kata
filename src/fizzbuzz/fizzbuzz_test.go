@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-func Test_FizzBuzz(t *testing.T) {
+func Test_Normal(t *testing.T) {
 	cases := []struct {
 		number   int
 		expected string
